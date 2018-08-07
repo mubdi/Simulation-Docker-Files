@@ -29,5 +29,17 @@ RUN echo `pwd`
 RUN echo `ls`
 RUN cd huji-rich/ && make set_environ_vars.sh && `cat set_environ_vars.sh` && make && cd tests/ && make
 
+## Installing Miniconda 
+RUN wget https://repo.continuum.io/miniconda/Miniconda3-latest-Linux-x86_64.sh
+RUN bash Miniconda3-latest-Linux-x86_64.sh -b
+RUN rm /home/rich/Miniconda3-latest-Linux-x86_64.sh
+
+ENV PATH /home/rich/miniconda3/bin:$PATH
+
+RUN conda install jupyter matplotlib
+
+ADD startjupyternotebook.sh /home/rich/
+RUN chmod a+x /home/rich/startjupyternotebook.sh
+
 # Diagnostics
 EXPOSE 8888

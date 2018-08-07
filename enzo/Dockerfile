@@ -26,8 +26,10 @@ ENV PATH /home/enzo/miniconda3/bin:$PATH
 
 RUN conda install jupyter matplotlib
 
-ADD startjupyternotebook.sh /home/enzo/
-RUN chmod a+x /enzo/rich/startjupyternotebook.sh
+USER root
+ADD startjupyternotebook.sh /usr/bin/
+RUN chmod a+x /usr/bin/startjupyternotebook.sh
 
+USER enzo 
 ## Getting Enzo
 RUN hg clone https://bitbucket.org/enzo/enzo-dev

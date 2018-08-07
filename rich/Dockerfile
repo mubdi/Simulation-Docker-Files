@@ -38,8 +38,11 @@ ENV PATH /home/rich/miniconda3/bin:$PATH
 
 RUN conda install jupyter matplotlib
 
-ADD startjupyternotebook.sh /home/rich/
-RUN chmod a+x /home/rich/startjupyternotebook.sh
+USER root
+ADD startjupyternotebook.sh /usr/bin/
+RUN chmod a+x /usr/bin/startjupyternotebook.sh
+
+USER rich 
 
 # Diagnostics
 EXPOSE 8888

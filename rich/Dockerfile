@@ -10,7 +10,7 @@ RUN apt-get install -y g++
 RUN apt-get install -y lbzip2
 RUN apt-get install -y zlib1g-dev
 RUN apt-get install -y zip
-RUN apt-get install -y 
+RUN apt-get install -y bzip2
 RUN pip install numpy
 RUN pip install h5py
 RUN pip install matplotlib

@@ -5,21 +5,24 @@ FROM ubuntu:18.04
 RUN apt-get update
 
 # Getting required packages
-RUN apt-get install -y build-essential gfortran csh gfortran  git
+RUN apt-get install -y build-essential gfortran csh gfortran git libcairo2-dev \
+	vim nano
 
 # Create a user, log in as that user and change to home directory
 RUN adduser --disabled-password --gecos '' phantom
 USER phantom
 WORKDIR /home/phantom
 
-# Clone Phantom git repository
+# Get Phantom and splash repositories
 RUN git clone https://bitbucket.org/danielprice/phantom
-
-# Change into Phantom directory
-WORKDIR /home/phantom/phantom
+RUN git clone https://github.com/danieljprice/splash.git
+RUN cd splash; git clone https://github.com/danieljprice/giza.git
 
 # OpenMP stacks can get big
 ENV OMP_STACKSIZE=4G
 
-# Environment variable telling Phantom what compiler to use
+# Environment variable telling Phantom and splash what compiler to use
 ENV SYSTEM=gfortran
+
+# Compile splash (and giza)
+RUN cd splash; make withgiza

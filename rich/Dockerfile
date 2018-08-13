@@ -16,6 +16,8 @@ RUN pip install h5py
 RUN pip install matplotlib
 RUN pip install jupyter
 
+EXPOSE 8888
+
 ## Creating rich User
 RUN adduser --disabled-password --gecos '' rich
 USER rich
@@ -36,13 +38,11 @@ RUN rm /home/rich/Miniconda3-latest-Linux-x86_64.sh
 
 ENV PATH /home/rich/miniconda3/bin:$PATH
 
-RUN conda install jupyter matplotlib
+RUN conda install jupyter matplotlib h5py numpy
 
 USER root
 ADD startjupyternotebook.sh /usr/bin/
 RUN chmod a+x /usr/bin/startjupyternotebook.sh
 
 USER rich 
-
-# Diagnostics
-EXPOSE 8888
+RUN cd huji-rich/tests/ && wget http://www.cita.utoronto.ca/~ayalin/simulation_workshop/vis_demo.ipynb

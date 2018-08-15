@@ -24,5 +24,8 @@ ENV OMP_STACKSIZE=4G
 # Environment variable telling Phantom and splash what compiler to use
 ENV SYSTEM=gfortran
 
+# Specify location of giza library
+ENV LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/home/phantom/splash/giza/lib/
+
 # Compile splash (and giza)
 RUN cd splash; make withgiza
